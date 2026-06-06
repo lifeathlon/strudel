@@ -1,5 +1,5 @@
 $: sound("cp")
-  .gain(0.01)._punchcard()
+  .gain(0.01).punchcard()
 /*
 ==========================================================================
 */
@@ -8,12 +8,12 @@ const cpm           = 134
 const scale         = "a:minor"
 
 const melodyOctDown = -0
-const melodySlow    = slider(2, 1, 8, 1)
-const melodyGain    = slider(1.348, 0, 2)
+const melodySlow    = slider(4, 1, 8, 1)
+const melodyGain    = slider(0.848, 0, 2)
 const melodyRoom    = slider(0.861,0,1)
 
-const bassOctDown   = 2
-const bassVariation = slider(2, 1, 6, 1)
+const bassOctDown   = 1
+const bassVariation = slider(3, 1, 6, 1)
 const bassSlow      = slider(3, 1, 8, 1)
 const bassGain      = slider(1.472, 0, 2)
 const bassRoom      = slider(0.924,0,1)
@@ -76,7 +76,7 @@ $: sound(wchooseCycles(
      ["bd:1*2", 1]
    ))
     .postgain(bdGain)
-    .color("darkblue")._pianoroll({ labels: 1 })
+    .color("dark")._pianoroll({ labels: 1 })
 
 $: sound("cp cp - cp")
   .postgain(cpGain)

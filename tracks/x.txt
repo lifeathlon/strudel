@@ -1,0 +1,98 @@
+cps(134/60/4)
+const scale             = "d:minor"
+const kickGain          = slider(0.816,0,2)
+const cpGain            = slider(0.482,0,2)
+const hhGain            = slider(0.398,0,2)
+const sawGain           = slider(1.106,0,2)
+
+
+const melodyOctDown     = 1
+const melodySlow        = slider(4, 1, 8, 1)
+const melodyGain        = slider(0.648, 0, 2)
+const melodyRoom        = slider(0.861,0,1)
+
+
+$kick:
+  s("sbd!4")
+  .distort("3:0.3:3")
+  .postgain(kickGain)
+  ._scope()
+   .duck ("2:3:4").duckattack(.2).duckdepth(.8)
+
+
+
+$arp: 
+   n("0 9 4  9 4 6 4 <6 13> 8 2 4 <6 13> ")
+   .slow(8)
+   .sound("gm_tubular_bells")
+   /*.lpf(slider(427.5,0,1500))
+   .lpa(.1)
+   .lpq(.5)
+   .lpenv("4")*/
+   .scale(scale)
+   .orbit(4)
+    ._pianoroll()
+
+
+$melody: 
+   n("<[0, 9, 4]  [9, 4, 6] [4, <6 13>, 8] [2, 4, <6 13>] >")
+   .slow(melodySlow)
+   .scale(scale)
+   .transpose(melodyOctDown*-12)
+   .sound("z_sawtooth")
+   .lpf(slider(396,0,1500))
+   .lpa(.1)
+   .lpq(.5)
+   .lpenv("4")
+   .room(melodyRoom)
+   .postgain(melodyGain)
+   .orbit(4)
+    ._pianoroll()
+
+
+$: s("supersaw").note(0).scale(scale).transpose(-12)
+   .detune(.5)
+   //.gain(rand.add(sawGain))
+  .gain(sawGain.mul(sine))
+   .orbit(2)
+   ._scope()
+
+$: s("hh:1!16?").ribbon(5,2)
+   .postgain(hhGain)
+   .pan(brand)
+   ._punchcard()
+
+$: sound("cp").beat("0,4,<11 12>", 16)
+  .postgain(cpGain)
+   ._punchcard()
+
+
+
+
+_$chords:
+chord("<Am F <C G> Em>")
+  .voicing()
+  .sound("z_sawtooth")
+  .slow(2)
+  .lpf(slider(144,0,1500))
+  .lpa(.1)
+  .lpq(.5)
+  .lpenv("4")
+  .transpose(-12)
+  .postgain(.5)
+
+
+_$: 
+   n(irand(8))
+   .scale("a:minor")
+   .struct("x _ x x - x _ x _ _")
+   .slow(1)
+   .transpose(-12)
+   .sound("z_sawtooth")
+   .room(1)
+   .roomsize(5)
+   .postgain(1)
+   .ribbon(20,16)
+   .orbit(3)
+   ._pianoroll()
+

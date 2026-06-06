@@ -1,0 +1,70 @@
+const scale       = "d:minor "
+const kickGain    = slider(0.664,0,2)
+const sawGain     = slider(0,0,2)
+const bamGain     = slider(1.04,0,2)
+const pulseGain   = slider(0,0,2)
+const melodyGain    = slider(0, 0, 2)
+
+const melodyOctDown = -1
+const melodySlow    = slider(1, 1, 8, 1)
+const melodyRoom    = slider(0.861,0,1)
+
+setCps(140/60/4)
+$: sound("cp")
+  .gain(0.01).punchcard()
+
+$kick: 
+   s("sbd!4") 
+   .duck ("2:3:4").duckattack(.2).duckdepth(.8)
+   .distort("3:.3")
+   .gain(kickGain)
+   ._pianoroll({ labels: 1 })
+
+
+$melody: 
+    n(irand(10))
+   .struct("x*32")
+   //.struct("x x*2 - x*4")
+   //.struct("x [x _] - [x x _ x]")
+   .scale(scale)
+   .sound("supersaw")
+   .slow(melodySlow)
+   .room(melodyRoom)
+   .transpose(melodyOctDown*-12)
+   .orbit(2)
+   .postgain(melodyGain)
+   .color("red")._pianoroll({ labels: 1 })
+
+$saw: 
+    n(irand(10))
+   //.struct("x x*2 - x*4")
+   //(.struct("x [x _] - [x x _ x]")
+   .struct("x!16")
+   .scale(scale)
+   .transpose(-12) 
+   .sound("sawtooth")
+   .orbit(2)
+   .postgain(sawGain)
+   .color("red")._pianoroll({ labels: 1 })
+
+$bam: 
+   s("supersaw").detune(1).rel(5).beat(2,32).slow(2).orbit(4).fm("2").fmh(2.04)
+   .postgain(bamGain)
+   .room(1).roomsize(6)
+   ._scope()
+$pulse: s("pulse")
+   .orbit(4).seq(16).dec(.1).fm(time).fmh(time)
+   .postgain(pulseGain)
+   ._scope()
+
+_$: 
+   n(irand(10)).struct("x").scale("d:minor")   
+   //n(irand(3).sub(7).seq(16)).struct("x").scale("d:minor")   
+   .rib(46,1)
+   .distort("2.2:.3")
+   .s("supersaw")
+     .lpf(200)
+     .lpenv(slider(2.52,0,8))
+     .lpq(12)  
+   .orbit(2)  
+   ._pianoroll({ labels: 1 })
