@@ -1,0 +1,59 @@
+setcpm(138/4)
+
+$: sound("bd*4")
+  .bank("RolandTR909")
+  .gain(slider(0.3052, .1, 1))
+
+$: sound("<[- bd]>*2")
+  .bank("RolandTR909")
+  .gain(slider(0.1801, .1, 1))
+
+$: sound("hh*8")
+  .bank("RolandTR909")
+  .gain(slider(0.118, .1, 1))
+
+
+$: sound("~ cp ~ cp")
+  .bank("RolandTR909")
+  .gain(slider(0.2008, .1, 1))
+
+
+
+_$: note("c2*4")
+  .sound("sawtooth")
+  .struct("~ x ~ x ~ x ~ x")
+  .lpf(slider(500, 100, 3000))
+  .gain(slider(0.3889, .1, 1))
+
+$: sound("hh!1").gain(.01)._pianoroll()
+
+$: note("<c5 [d5 eb5]- g5 f5 - eb5 [d5 c5] bb4 - c5>*2")
+  .sound("piano")
+  .gain("<0.7 0.45 0.8 0.55 0.65 0.5 0.75 0.4>")
+  .transpose(-12)
+  .lpf(1200)
+  .delay(slider(0.2035, .1, 1))
+  .delaytime(slider(0.2116, .1, 1))
+  .delayfeedback(slider(0.595, .1, 1))
+  .room(.8)
+  .postgain(slider(1, .1, 1))
+  ._pianoroll()
+
+
+$: note("<c2 d2 a1 c2>")
+.sound("saw")
+.gain(slider(0.4474, .1, 1))
+.struct("- x ~ x ~ x ~ x")
+.attack(slider(0.0298, .01, 1))
+.decay(slider(0.02782, .01, 1))
+.sustain(slider(0.58222, .01, 1))
+.release(slider(0.26146, .01, 1))
+.lpf(slider(1413.7, 100, 3000))
+.delay(slider(0.3241, .1, 1))
+.delaytime(slider(0.6031, .1, 1))
+.delayfeedback(slider(0.5491, .1, 1))
+.postgain(slider(0.8308, .1, 1))
+._pianoroll()
+  
+
+
