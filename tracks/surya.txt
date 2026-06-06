@@ -9,6 +9,7 @@ _$: note("c2")
   .gain(0.3)
 
 
+//drone
 _$: note("c2,g2")
   .sound("sawtooth")
   //.lpf(sine.range(250, 450).slow(8))
@@ -49,10 +50,24 @@ _$: sound("bd ~ sd ~ bd ~ sd ~")
   .gain(.2)
 
 
-S$: note(`< 
+// 1  Om Mitraaya Namaha        dm1  DFA
+// 2  Om Ravaye Namaha          F3   CFA
+// 3  Om Suryaaya Namaha        C1   CEG
+// 4  Om Bhanave Namaga
+// 5  Om Kagaaya Namaha         dm1  DFA
+// 6  Om Pushne Namaha          F3   CFA
+// 7  Om Hiranyagarbhaya Namah  C1   CEG
+// 8  Om Marichaye Namaha       am2  CEA
+// 9  Om Aadityaaya Namaha      dm1  DFA
+// 10 Om Savitre Namaha         F3   CFA
+// 11 Om Arkaaya Namaha         C1   CEG
+// 12 Om Bhaskaraaya Namaha     am2  CEA
+
+$: note(`< 
   [d4,f4,a4] 
   [c4,f4,a4]
   [c4,e4,g4]
+  [c4,e4,a4]
   [d4,f4,a4]
   [c4,f4,a4]
   [c4,e4,g4]
@@ -71,7 +86,7 @@ S$: note(`<
   .release(2)
   .room(.8)
   .transpose(-12)
-  .postgain(.6)
+  .postgain(1)
   .slow(2)
   ._pianoroll()
 
@@ -86,7 +101,7 @@ $: sound("dhum ~ na ki dhum ~ thom ki")
 _$: sound("dhum ~ thom ~ dhum ~ na ~")
   .bank("mridangam")
   .slow(1)
-  .gain(.4)
+  .gain(.3)
   .color("red")
   ._punchcard()
 
