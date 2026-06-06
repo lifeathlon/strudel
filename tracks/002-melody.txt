@@ -1,0 +1,165 @@
+// Gayatri
+setcpm(134/4) // =140 bpm in 4/4
+
+
+
+_$: n("<[0, 2, 4] [1, 3, 5] [2, 4, 6] [3, 5, 7] [4, 6, 8] [5, 7, 9] [6, 8, 10]>")
+  .scale("D:minor")
+  .sound("piano")
+
+
+// CHORDS
+
+_$: n("<[0, 2, 4]  [2, 4, 6] [4, 6, 8] [2, 4, 6] >")
+  .scale("D:minor")
+  .sound("piano")
+
+
+// MELODY
+
+// $: n("< [0 2 4 0 2 4 0 2]  [2 4 6 2 4 6 2 4]  [4 6 8 4 6 8 4 6]  [2 4 6 2 4 6 2 4] >")
+// $: n("< [0 2 4 0 2 4 0 2]  [0 2 5 0 2 5 0 2]  [0 2 6 0 2 6 0 2]>")
+// $: n("< [0 _ 4 _ - 4 - 2]  [2 - 6 - - 6 - 4]  [4 - 8 - - 8 - 6]  [2 - 6 - 6 6 _ 4] >")
+
+$:    n("< [0 _ 4 _ - 4 - 2]  [2 - 6 - - 6 - 4]  [4 - 8 - - 8 - 6]  [2 - 6 - 6 6 _ 4] >")
+  .scale("D:minor")
+  .sound("sawtooth")
+  .lpf(slider(716.5,100,1000))
+  .attack(.1)
+  .decay(0.65)
+  .sustain(0.45)
+  .release(.2)
+  .room(.8)
+  .transpose(-12)
+  .postgain(1)
+  .color("red")
+  ._pianoroll()
+
+$: note("a").gain(.1).color("grey")._pianoroll()
+
+
+$: sound("bd:1").beat("0,4,8,11,14",16)
+  .postgain(.4)
+  .color("yellow")._punchcard()
+$: sound("sd:1").beat("0,6,11,14",16)
+  .postgain(.4)
+  .color("green")._punchcard()
+
+
+_$: n("<[0 ~ 0 0] [0 ~ 0 0] [0 ~ 0 0] [0 ~ 6 5]>")
+  .scale("D:minor")
+  .sound("sawtooth")
+  .transpose(-24)
+  .lpf("<260 320 280 420>")
+  .lpq(8)
+  .attack(0.01)
+  .decay(0.12)
+  .sustain(0.18)
+  .release(0.06)
+  .gain(1.42)
+  ._pianoroll()
+
+
+
+_$: note("d3 _  f3 _ a3 a3 d4 _ ")
+  .sound("piano")
+  ._pianoroll()
+
+// DRUMS
+/*
+$: sound("bd*4")
+  .bank("RolandTR909")
+  .sometimesBy(.25, x => x.fast(2))
+._pianoroll()
+$: sound("[~ hh]*4")
+  .bank("RolandTR909")
+  .gain(.35)
+
+$: sound("~ cp ~ cp")
+  .bank("RolandTR909")
+  .gain(.5)
+
+$: sound("~ ~ oh ~")
+  .bank("RolandTR909")
+  .gain(.3)
+  .sometimesBy(.3, x => x.fast(2))
+
+*/
+/*=========================================================*/
+/*
+C-DUR
+
+
+// C DUR  CEG  EGC  GCE
+_$: note("c4,e4,g4").sound("piano")
+_$: note("e4,g4,c5").sound("piano")
+_$: note("g4,c5,e5").sound("piano")
+
+// G DUR  GHD  HDG  DGH
+_$: note("g4,b4,d5").sound("piano")
+_$: note("b4,d5,g5").sound("piano")
+_$: note("d5,g5,b5").sound("piano")
+
+// F DUR  FAC  ACF  CFA
+_$: note("f4,a4,c5").sound("piano")
+_$: note("a4,c5,f5").sound("piano")
+_$: note("c5,f5,a5").sound("piano")
+
+// D DUR  DFisA  FisAD  ADFis
+_$: note("d4,fs4,a4").sound("piano")
+_$: note("fs4,a4,d5").sound("piano")
+_$: note("a4,d5,fs5").sound("piano")
+
+// B DUR  BDF  DFB  FBD
+_$: note("bb3,d4,f4").sound("piano")
+_$: note("d4,f4,bb4").sound("piano")
+_$: note("f4,bb4,d5").sound("piano")
+
+// A DUR  ACisE  CisEA  EACis
+_$: note("a4,cs5,e5").sound("piano")
+_$: note("cs5,e5,a5").sound("piano")
+_$: note("e5,a5,cs6").sound("piano")
+
+// ES DUR  EsGB  GBEs  BEsG
+_$: note("eb4,g4,bb4").sound("piano")
+_$: note("g4,bb4,eb5").sound("piano")
+_$: note("bb4,eb5,g5").sound("piano")
+
+// E DUR  EGisH  GisHE  HEGis
+_$: note("e4,gs4,b4").sound("piano")
+_$: note("gs4,b4,e5").sound("piano")
+_$: note("b4,e5,gs5").sound("piano")
+
+// d MOLL  DFA  FAD  ADF
+_$: note("d4,f4,a4").sound("piano")
+_$: note("f4,a4,d5").sound("piano")
+_$: note("a4,d5,f5").sound("piano")
+
+// a MOLL  ACE  CEA  EAC
+_$: note("a4,c5,e5").sound("piano")
+_$: note("c5,e5,a5").sound("piano")
+_$: note("e5,a5,c6").sound("piano")
+
+// e MOLL  EGH  GHE  HEG
+_$: note("e4,g4,b4").sound("piano")
+_$: note("g4,b4,e5").sound("piano")
+_$: note("b4,e5,g5").sound("piano")
+
+// c MOLL  CEsG  EsGC  GCEs
+_$: note("c4,eb4,g4").sound("piano")
+_$: note("eb4,g4,c5").sound("piano")
+_$: note("g4,c5,eb5").sound("piano")
+
+// g MOLL  GBD  BDG  DGB
+_$: note("g4,bb4,d5").sound("piano")
+_$: note("bb4,d5,g5").sound("piano")
+_$: note("d5,g5,bb5").sound("piano")
+
+
+*/
+/*=========================================================*/
+
+
+_$: n("0 1 2 3 4 5 6 7")
+  .scale("D:major")
+  .sound("piano")

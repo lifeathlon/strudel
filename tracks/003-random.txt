@@ -1,0 +1,90 @@
+$: sound("cp")
+  .gain(0.01)._punchcard()
+/*
+==========================================================================
+*/
+
+const cpm           = 134
+const scale         = "a:minor"
+
+const melodyOctDown = -0
+const melodySlow    = slider(2, 1, 8, 1)
+const melodyGain    = slider(1.348, 0, 2)
+const melodyRoom    = slider(0.861,0,1)
+
+const bassOctDown   = 2
+const bassVariation = slider(2, 1, 6, 1)
+const bassSlow      = slider(3, 1, 8, 1)
+const bassGain      = slider(1.472, 0, 2)
+const bassRoom      = slider(0.924,0,1)
+
+const bdGain        = slider(1.056, 0, 2)
+const hhGain        = slider(0.514, 0, 2)
+const cpGain        = slider(0.348, 0, 2)
+
+
+
+
+
+
+/*
+==========================================================================
+==========================================================================
+==========================================================================
+==========================================================================
+*/
+
+setcpm(cpm/4)
+
+
+$bass:
+   n(irand(bassVariation)).struct("x").scale(scale)
+  .sound("supersaw")
+  .slow(bassSlow)
+  .transpose(bassOctDown*(-12))
+  .room(bassRoom)
+  .postgain(bassGain)
+  .color("darkred")._pianoroll({ labels: 1 })
+
+$melody: 
+    n(irand(8))
+   //.struct("x x*2 - x*4")
+   .struct("x [x _] - [x x _ x]")
+   .scale(scale)
+   .sound("supersaw")
+   .slow(melodySlow)
+   .room(melodyRoom)
+   .transpose(melodyOctDown*-12)
+   .postgain(melodyGain)
+   .color("red")._pianoroll({ labels: 1 })
+
+
+_$highthingy:
+   n(irand(3)).struct("x").scale(scale)
+  .sound("supersaw")
+  .transpose(36)
+  .slow(2)
+  .postgain(.05)
+  .color("red")._pianoroll({ labels: 1 })
+
+
+
+
+$: sound(wchooseCycles(
+     ["bd:1*4", 3],
+     ["bd:1*4 [bd:1 bd:1]", 1],
+     ["bd:1*2", 1]
+   ))
+    .postgain(bdGain)
+    .color("darkblue")._pianoroll({ labels: 1 })
+
+$: sound("cp cp - cp")
+  .postgain(cpGain)
+   ._punchcard()
+
+$: sound("hh:1*16")
+  .pan(brandBy(0.5))
+  .gain(rand.range(0.0, hhGain))
+  ._punchcard()
+
+
