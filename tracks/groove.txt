@@ -1,0 +1,70 @@
+setcpm(90/4)
+
+const scale = "d:minor"
+
+let kick = sound("bd:1")
+  .struct("x ~ x ~")
+  .bank("RolandTR909")
+  .distort("2:0.7")
+  .duck(1).duckattack(.2).duckdepth(.8)
+  .postgain(1.1)
+
+let hat = sound("hh*8")
+  .bank("RolandTR909")
+  .gain("<.35 .5 .3 .65>")
+  .pan(sine.range(.35,.65).slow(4))
+
+let clap = sound("~ cp ~ cp")
+  .bank("RolandTR909")
+  .room(.3)
+
+let bass = n("<0 0 3 0 5 3 0 7>")
+  .scale(scale)
+  .sound("supersaw")
+  .transpose(-24)
+  .struct("x [~ x] x [x ~]")
+  .lpf(500)
+  .lpq(8)
+  .attack(.01)
+  .decay(.28)
+  .sustain(.25)
+  .release(.22)
+  .room(1)
+  .roomsize(3)
+  .postgain(.8)
+
+
+let chords  = n("<[3, 5, 7] >").struct("[x]").scale(scale).sound("piano").transpose(-12)
+let mel = n("<[0 2 4] [2 4 6] [4 6 2]>").struct("[x - x -] x [x - - - x -]").scale(scale).sound("piano").postgain(.5)
+
+let melody = n("<7 ~ 5 3 5 7 10 7>")
+  .scale(scale)
+  .sound("gm_synth_bass_2")
+  .transpose(12)
+  .struct("x ~ [x x] ~ x [~ x] x ~")
+  .attack(.02)
+  .decay(.18)
+  .sustain(.2)
+  .release(.12)
+  .lpf(1400)
+  .delay(.25)
+  .delaytime(.25)
+  .delayfeedback(.35)
+  .room(.45)
+  .postgain(.45)
+
+$: 
+  stack(
+   // kick, 
+   // hat, 
+   // clap, 
+    bass.orbit(1), 
+    melody,
+    //chords,
+    //mel
+)
+
+._pianoroll()
+
+$: n("<0>").struct("x").scale(scale).sound("piano").postgain(.01)
+._pianoroll()

@@ -1,0 +1,143 @@
+setcpm(134/4)
+
+samples({
+  nein: 'stuff.wav',
+  noneed: 'wedontneedthis.wav',
+  cid: 'commerceisdead.wav'
+}, 'https://raw.githubusercontent.com/lifeathlon/strudel/main/samples/stuff/')
+
+
+const drum_bank = "RolandTR909"
+const drum_gain = slider(0.454, 0,2)
+
+var dreamy = x => x
+  .speed(.75)
+  .delay(.35)
+  .delaytime(.375)
+  .delayfeedback(.45)
+  .room(.8)
+  .gain(.8)
+  .slow(1)
+
+var cido = dreamy(s("<cid*1 _ >"))
+
+
+var kick = s("bd:1!4").bank(drum_bank).gain(drum_gain).duck("2:4:6").duckattack(.2).duckdepth(.8)
+var hh   = sound("hh:1").bank(drum_bank).beat("0,4,8,12?,15", 16).pan(brandBy(brand)).gain(drum_gain)
+var cp   = sound("cp:1").bank(drum_bank).beat("0,8,12,14", 16).gain(drum_gain)
+
+var bass=
+  n("~ 0 ~ 3")
+  .scale("D:minor")
+  .sound("sawtooth")
+  .transpose(-24)
+  .lpf(300)
+
+_$: note("<d4 f4 a4 f4 d4 f4 c5 a4>")
+  .sound("sawtooth")
+  .lpf(1000)
+  .decay(.2)
+  .sustain(.1)
+  .room(.3)
+  .delay(.25)
+  .delaytime(.25)
+  .delayfeedback(.35)
+  ._pianoroll()
+_$: note("<[d3 a3 f4] [bb2 f3 d4] [c3 g3 e4] [a2 e3 c4]>")
+  .sound("gm_string_ensemble_1")
+  .slow(1)
+  .attack(1.5)
+  .release(4)
+  .room(.9)
+  .lpf(1800)
+  .postgain(1.2)
+  ._pianoroll({ labels: 1 })
+
+
+
+_$: note("<[d3 a3 f4 d5] [bb2 f3 d4 bb4] [c3 g3 e4 c5] [a2 e3 c4 a4]>")
+  .slow(4)
+  ._pianoroll({ labels: 1, height:100 })
+
+
+const string_gain = slider(1.02,0,2)
+const scale = "a:minor"
+var epicStrings = x => x
+  .scale(scale)
+  .sound("gm_string_ensemble_1")
+  .slow(4)
+  .attack(2)
+  .release(5)
+  .room(1)
+  .lpf(2200)
+  .transpose(1)
+  .postgain(string_gain)
+
+_$: kick
+_$: cp
+_$: hh
+
+var drums = stack (kick, cp, hh)
+
+const bass_gain = slider(0.964,0,2)
+
+var bass = n(0).scale(scale).sound("supersaw").transpose(-24).orbit(2).postgain(bass_gain)
+
+$:epicStrings(n("<[0 4 2]>").transpose(-12))
+._pianoroll({labels:1, height:200})
+
+_$: 
+arrange(
+  /*
+  [1, bass],
+  //[2, cido],
+  [2, hh],
+  [1, bass],
+  [2, hh],
+  [4, stack(bass, hh)],
+  [4, stack(bass, hh, cp)],
+  [4, stack(bass, hh, cp, kick)],
+  */
+
+  
+  [4, stack(
+        epicStrings(n("<[0 4 9 14]>")),
+        bass, hh, cp, kick
+      )],
+  [4, stack(
+        epicStrings(n("<[-2 2 7 12]>")),
+        bass, hh, cp, kick
+      )],
+  [4, stack(
+        epicStrings(n("<[-1 3 8 13]>")),
+        bass, hh, cp, kick
+      )],
+  [4, stack(
+        epicStrings(n("<[-3 1 6 11]>")),
+        bass, hh, cp, kick
+      )],
+
+
+  
+
+)
+ ._pianoroll({ labels: 1, height:200 })
+
+// note("<[d3 a3 f4 d5] [bb2 f3 d4 bb4] [c3 g3 e4 c5] [a2 e3 c4 a4]>")
+_$: n("<[0 4 9 14]>").scale("d:minor")
+  .sound("gm_string_ensemble_1")
+  .slow(4)
+  .attack(2)
+  .release(5)
+  .room(1)
+  .lpf(2200)
+  .postgain(1)
+ 
+
+_$:
+arrange (
+  [1, stack( kick, hh, cp)],
+  [4, stack( kick, hh, cp, bass)]
+)
+  ._scope({height:200})
+  ._punchcard({labels:1, height: 100})

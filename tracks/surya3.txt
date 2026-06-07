@@ -1,0 +1,187 @@
+// https://strudel.cc/#c2V0Y3BtKDkwLzQpIC8vID0xNDAgYnBtIGluIDQvNAoKXyQ6IG5vdGUoImMyIikKICAuc291bmQoInNhd3Rvb3RoIikKICAuc2xvdyg0KQogIC5hdHRhY2soMC4xKQogIC5yZWxlYXNlKDIpCiAgLmxwZihzbGlkZXIoMzUwLCAxMDAsIDEwMDApKQogIC5nYWluKDAuMykKCgovL2Ryb25lCl8kOiBub3RlKCJjMixnMiIpCiAgLnNvdW5kKCJzYXd0b290aCIpCiAgLy8ubHBmKHNpbmUucmFuZ2UoMjUwLCA0NTApLnNsb3coOCkpCiAgLmxwZihzaW5lLnJhbmdlKDIwMCwgMTIwMCkuc2xvdyg0KSkKICAuYXR0YWNrKC41KQogIC5yZWxlYXNlKDIpCiAgLnJvb20oLjgpCiAgLmdhaW4oLjE1KQogIC8vLnNsb3coLjUpCiAgLl9waWFub3JvbGwoKQoKCi8vICAgICAgICBNaXRyYXlhICAgICBSYXZheWUgICAgIFN1cmF5YSAgICAgS2FnYWFheXkgICBQdXNobmUgICAgIEhpcmFueWEgICAgTWFyaWNoYXllICBBYWRpdHlhYXlhICBTYXZpdHJlICAgQXJrYWF5YSAgIEJoYXNrYXJheWEKXyQ6IG5vdGUoIjxbZDQsZjQsYTRdIFtjNCxmNCxhNF0gW2M0LGU0LGc0XSBbZDQsZjQsYTRdIFtjNCxmNCxhNF0gW2M0LGU0LGc0XSBbYzQsZTQsYTRdIFtkNCxmNCxhNF0gW2M0LGY0LGE0XSBbYzQsZTQsZzRdIFtjNCxlNCxhNF0gPiIpCiAgLnNvdW5kKCJnbV9kcmF3YmFyX29yZ2FuOjMiKQogIC8vLnNvdW5kKCJnbV9yb2NrX29yZ2FuOjEiKQogIC5scGYoc2luZS5yYW5nZSg1MDAsIDEyMDApLnNsb3coOCkpCiAgLmxwcSgzKQogIC5hdHRhY2soLjMpCiAgLnJlbGVhc2UoMikKICAucm9vbSguOCkKICAudHJhbnNwb3NlKC0xMikKICAucG9zdGdhaW4oLjYpCiAgLnNsb3coMikKICAKXyQ6IHNvdW5kKCJkaHVtIGtpIG5hIGtpIGRodW0ga2kgbmEga2kiKS5iYW5rKCJtcmlkYW5nYW0iKQogIC5nYWluKC43KQogIC5zbG93KDIpCiAgCgpfJDogc291bmQoImRodW0gbmEgdGEga2kgZGh1bSBuYSB0aG9tIGtpIikKICAuYmFuaygibXJpZGFuZ2FtIikKICAuc2xvdygyKQogIC5nYWluKC43KQoKXyQ6IHNvdW5kKCJiZCB%2BIHNkIH4gYmQgfiBzZCB%2BIikKICAuc2xvdygyKQogIC5nYWluKC4yKQoKCi8qCgpDSE9SRFMKCiovIAoKLy8gMSAgT20gTWl0cmFheWEgTmFtYWhhICAgICAgICBkbTEgIERGQQovLyAyICBPbSBSYXZheWUgTmFtYWhhICAgICAgICAgIEYzICAgQ0ZBCi8vIDMgIE9tIFN1cnlhYXlhIE5hbWFoYSAgICAgICAgQzEgICBDRUcKLy8gNCAgT20gQmhhbmF2ZSBOYW1haGEKLy8gNSAgT20gS2FnYWF5YSBOYW1haGEgICAgICAgICBkbTEgIERGQQovLyA2ICBPbSBQdXNobmUgTmFtYWhhICAgICAgICAgIEYzICAgQ0ZBCi8vIDcgIE9tIEhpcmFueWFnYXJiaGF5YSBOYW1haCAgQzEgICBDRUcKLy8gOCAgT20gTWFyaWNoYXllIE5hbWFoYSAgICAgICBhbTIgIENFQQovLyA5ICBPbSBBYWRpdHlhYXlhIE5hbWFoYSAgICAgIGRtMSAgREZBCi8vIDEwIE9tIFNhdml0cmUgTmFtYWhhICAgICAgICAgRjMgICBDRkEKLy8gMTEgT20gQXJrYWF5YSBOYW1haGEgICAgICAgICBDMSAgIENFRyAKLy8gMTIgT20gQmhhc2thcmFheWEgTmFtYWhhICAgICBhbTIgIENFQQoKJDogbm90ZShgPCAKICBbLSAtIC0gXQogIFtkNCxmNCxhNF0gCiAgW2M0LGY0LGE0XQogIFtjNCxlNCxnNF0KICBbYzQsZTQsYTRdCiAgW2Q0LGY0LGE0XQogIFtjNCxmNCxhNF0KICBbYzQsZTQsZzRdCiAgW2M0LGU0LGE0XQogIFtkNCxmNCxhNF0KICBbYzQsZjQsYTRdCiAgW2M0LGU0LGc0XQogIFtjNCxlNCxhNF0KPmApICAKICAvLy5zb3VuZCgiZ21fZHJhd2Jhcl9vcmdhbjozIikKICAvLy5zb3VuZCgiZ21fcm9ja19vcmdhbjoxIikKICAucygiZ21fcGFkX3BvbHkiKQogIC5scGYoc2luZS5yYW5nZSg1MDAsIDEyMDApLnNsb3coOCkpCiAgLmxwcSgzKQogIC5hdHRhY2soLjMpCiAgLnJlbGVhc2UoMikKICAucm9vbSguOCkKICAudHJhbnNwb3NlKC0xMikKICAucG9zdGdhaW4oMSkgCiAgLnNsb3coMikKICAuX3BpYW5vcm9sbCgpCgoKLyoKCkRST05FCgoqLwoKJDogbm90ZSgiZDIsYTIsZDMiKQogIC5zKCJnbV9wYWRfd2FybSIpCiAgLmxwZihzaW5lLnJhbmdlKDI1MCwgNjAwKS5zbG93KDE2KSkKICAuYXR0YWNrKDEpCiAgLnJlbGVhc2UoNSkKICAucm9vbSguOSkKICAucG9zdGdhaW4oLjE3KQogIC5zbG93KDgpCiAgLmNvbG9yKCJ5ZWxsb3ciKQogIC5fcGlhbm9yb2xsKCkKCi8qCgpzb2Z0IGhpZ2ggc2hpbW1lcgoKKi8KCgokOiBub3RlKCI8YTUgYzYgZDYgYzY%2BIikKICAucygiZ21fdGlua2xlX2JlbGwiKQogIC5zbG93KDgpCiAgLmRlbGF5KC4zNSkKICAuZGVsYXl0aW1lKC4yNSkKICAuZGVsYXlmZWVkYmFjayguNDUpCiAgLnJvb20oLjkpCiAgLmdhaW4oLjAyKQogIC5fcGlhbm9yb2xsKCkKCgoKXyQ6IG5vdGUoIjx%2BIH4gYTQgYzUgZDUgYzUgYTQgfj4iKQogIC5zKCJnbV9zaGFuYWkiKQogIC5zbG93KDQpCiAgLmxwZigxNDAwKQogIC5yb29tKC44KQogIC5nYWluKC4xOCkKICAuX3BpYW5vcm9sbCgpCgoKLyoKRFJVTVMKKi8KCiQ6IHNvdW5kKCJkaHVtIH4gbmEga2kgZGh1bSB%2BIHRob20ga2kiKQogIC5iYW5rKCJtcmlkYW5nYW0iKQogIC5zbG93KDIpCiAgLmdhaW4oc2luZS5yYW5nZSguMzUsIC42KS5zbG93KDE2KSkKICAuY29sb3IoInJlZCIpCiAgLl9wdW5jaGNhcmQoKQoKXyQ6IHNvdW5kKCJkaHVtIH4gdGhvbSB%2BIGRodW0gfiBuYSB%2BIikKICAuYmFuaygibXJpZGFuZ2FtIikKICAuc2xvdygxKQogIC5nYWluKC4zKQogIC5jb2xvcigicmVkIikKICAuX3B1bmNoY2FyZCgpCgoKCgoKXyQ6IG5vdGUoImMyLGcyLGMzIikKICAvLy5zb3VuZCgiZ21fc2l0YXIiKQogIC5zKCJnbV9wYWRfd2FybSIpCiAgIC5scGYoc2luZS5yYW5nZSgzMDAsIDcwMCkuc2xvdyg4KSkKICAvLyguYmFuaygiZ21fZHJhd2JhciIpCiAgLmF0dGFjayguMykKICAucmVsZWFzZSgyKQogIC5yb29tKC44KQogIC5zbG93KC41KSAgCiAgLmdhaW4oLjYpCgoKLyo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0qLwovKgpDLURVUgoKCi8vIEMgRFVSICBDRUcgIEVHQyAgR0NFCl8kOiBub3RlKCJjNCxlNCxnNCIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJlNCxnNCxjNSIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJnNCxjNSxlNSIpLnNvdW5kKCJwaWFubyIpCgovLyBHIERVUiAgR0hEICBIREcgIERHSApfJDogbm90ZSgiZzQsYjQsZDUiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiYjQsZDUsZzUiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiZDUsZzUsYjUiKS5zb3VuZCgicGlhbm8iKQoKLy8gRiBEVVIgIEZBQyAgQUNGICBDRkEKXyQ6IG5vdGUoImY0LGE0LGM1Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImE0LGM1LGY1Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImM1LGY1LGE1Iikuc291bmQoInBpYW5vIikKCi8vIEQgRFVSICBERmlzQSAgRmlzQUQgIEFERmlzCl8kOiBub3RlKCJkNCxmczQsYTQiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiZnM0LGE0LGQ1Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImE0LGQ1LGZzNSIpLnNvdW5kKCJwaWFubyIpCgovLyBCIERVUiAgQkRGICBERkIgIEZCRApfJDogbm90ZSgiYmIzLGQ0LGY0Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImQ0LGY0LGJiNCIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJmNCxiYjQsZDUiKS5zb3VuZCgicGlhbm8iKQoKLy8gQSBEVVIgIEFDaXNFICBDaXNFQSAgRUFDaXMKXyQ6IG5vdGUoImE0LGNzNSxlNSIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJjczUsZTUsYTUiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiZTUsYTUsY3M2Iikuc291bmQoInBpYW5vIikKCi8vIEVTIERVUiAgRXNHQiAgR0JFcyAgQkVzRwpfJDogbm90ZSgiZWI0LGc0LGJiNCIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJnNCxiYjQsZWI1Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImJiNCxlYjUsZzUiKS5zb3VuZCgicGlhbm8iKQoKLy8gRSBEVVIgIEVHaXNIICBHaXNIRSAgSEVHaXMKXyQ6IG5vdGUoImU0LGdzNCxiNCIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJnczQsYjQsZTUiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiYjQsZTUsZ3M1Iikuc291bmQoInBpYW5vIikKCi8vIGQgTU9MTCAgREZBICBGQUQgIEFERgpfJDogbm90ZSgiZDQsZjQsYTQiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiZjQsYTQsZDUiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiYTQsZDUsZjUiKS5zb3VuZCgicGlhbm8iKQoKLy8gYSBNT0xMICBBQ0UgIENFQSAgRUFDCl8kOiBub3RlKCJhNCxjNSxlNSIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJjNSxlNSxhNSIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJlNSxhNSxjNiIpLnNvdW5kKCJwaWFubyIpCgovLyBlIE1PTEwgIEVHSCAgR0hFICBIRUcKXyQ6IG5vdGUoImU0LGc0LGI0Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImc0LGI0LGU1Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImI0LGU1LGc1Iikuc291bmQoInBpYW5vIikKCi8vIGMgTU9MTCAgQ0VzRyAgRXNHQyAgR0NFcwpfJDogbm90ZSgiYzQsZWI0LGc0Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImViNCxnNCxjNSIpLnNvdW5kKCJwaWFubyIpCl8kOiBub3RlKCJnNCxjNSxlYjUiKS5zb3VuZCgicGlhbm8iKQoKLy8gZyBNT0xMICBHQkQgIEJERyAgREdCCl8kOiBub3RlKCJnNCxiYjQsZDUiKS5zb3VuZCgicGlhbm8iKQpfJDogbm90ZSgiYmI0LGQ1LGc1Iikuc291bmQoInBpYW5vIikKXyQ6IG5vdGUoImQ1LGc1LGJiNSIpLnNvdW5kKCJwaWFubyIpCgoKKi8KLyo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0qLwoKCl8kOiBuKCIwIDEgMiAzIDQgNSA2IDciKQogIC5zY2FsZSgiRDptYWpvciIpCiAgLnNvdW5kKCJwaWFubyIp
+
+setcpm(90/4) // =140 bpm in 4/4
+
+samples({
+  om: ['om.wav', 'om2.wav', 'om3_1.mp3', 'om3_2.mp3', 'om3_3.mp3', 'om3_3.mp3', 'om3_4.mp3', 'om3_5.mp3', 'om3_6.mp3', 'om3_7.mp3', 'om3_8.mp3', 'om3_9.mp3' ]
+}, 'https://raw.githubusercontent.com/lifeathlon/strudel/main/samples/stuff/')
+
+var nextRound =
+    note("C2")
+    .sound("gm_glockenspiel")
+    .attack(.05)
+    .decay(1.5)
+    .sustain(.3)
+    .release(4)
+    .lpf(1800)
+    .room(.9)
+    .gain(3)
+    .slow(2)
+
+_$: 
+  nextRound
+  ._pianoroll()
+
+var om = 
+  s("om:1*1 _")
+  .speed(.9)
+  .delay(.35)
+  .delaytime(.375)
+  .delayfeedback(.45)
+  .room(.8)
+  .gain(.8)
+  .slow(2)
+ 
+
+_$: om
+ ._pianoroll()
+   ._scope()
+
+var padSound = x => x
+  .s("gm_pad_poly")
+  .lpf(sine.range(500, 1200).slow(8))
+  .lpq(3)
+  .attack(.3)
+  .release(2)
+  .room(.8)
+  .transpose(-12)
+  .postgain(1)
+  .slow(2)
+
+
+var drummy = 
+  sound("dhum ~ na ki dhum ~ thom ki")
+  .bank("mridangam")
+  .slow(2)
+  .gain(sine.range(.35, .6).slow(16))
+
+var drony =
+  note("d2,a2,d3")
+  .s("gm_pad_warm")
+  .lpf(sine.range(250, 600).slow(16))
+  .attack(1)
+  .release(5)
+  .room(.9)
+  .postgain(slider(0.214,0,2))
+  .slow(8)
+
+
+/*
+CHORDS
+
+*/ 
+
+// 1  Om Mitraaya Namaha        dm1  DFA
+// 2  Om Ravaye Namaha          F3   CFA
+// 3  Om Suryaaya Namaha        C1   CEG
+// 4  Om Bhanave Namaha
+// 5  Om Kagaaya Namaha         dm1  DFA
+// 6  Om Pushne Namaha          F3   CFA
+// 7  Om Hiranyagarbhaya Namah  C1   CEG
+// 8  Om Marichaye Namaha       am2  CEA
+// 9  Om Aadityaaya Namaha      dm1  DFA
+// 10 Om Savitre Namaha         F3   CFA
+// 11 Om Arkaaya Namaha         C1   CEG 
+// 12 Om Bhaskaraaya Namaha     am2  CEA
+
+var chords = [
+  "[- - -]",
+  "[d4,f4,a4]",
+  "[c4,f4,a4]",
+  "[c4,e4,g4]",
+  "[c4,e4,a4]",
+  "[d4,f4,a4]",
+  "[c4,f4,a4]",
+  "[c4,e4,g4]",
+  "[c4,e4,a4]",
+  "[d4,f4,a4]",
+  "[c4,f4,a4]",
+  "[c4,e4,g4]",
+  "[c4,e4,a4]"
+]
+
+_$: padSound(note (chords[1]))
+
+
+$: arrange (
+  [2, stack(nextRound, om, drummy, padSound(note (chords[1])))],
+  [2, stack(om, drummy, padSound(note (chords[2])))],
+  [2, stack(om, drummy, padSound(note (chords[3])))],
+  [2, stack(om, drummy, padSound(note (chords[4])))],
+  [2, stack(om, drummy, padSound(note (chords[5])))],
+  [2, stack(om, drummy, padSound(note (chords[6])))],
+  [2, stack(om, drummy, padSound(note (chords[7])))],
+  [2, stack(om, drummy, padSound(note (chords[8])))],
+  [2, stack(om, drummy, padSound(note (chords[9])))],
+  [2, stack(om, drummy, padSound(note (chords[10])))],
+  [2, stack(om, drummy, padSound(note (chords[11])))],
+  [2, stack(om, drummy, padSound(note (chords[12])))],
+
+//  [2, stack(padSound(note (chords[1])), drummy)],
+//  [2, stack(padSound(note (chords[2])), drummy)],
+
+)
+._pianoroll({labels:1})
+
+_$: note(`< 
+  [- - - ]
+  [d4,f4,a4] 
+  [c4,f4,a4]
+  [c4,e4,g4]
+  [c4,e4,a4]
+  [d4,f4,a4]
+  [c4,f4,a4]
+  [c4,e4,g4]
+  [c4,e4,a4]
+  [d4,f4,a4]
+  [c4,f4,a4]
+  [c4,e4,g4]
+  [c4,e4,a4]
+>`)  
+  //.sound("gm_drawbar_organ:3")
+  //.sound("gm_rock_organ:1")
+  .s("gm_pad_poly")
+  .lpf(sine.range(500, 1200).slow(8))
+  .lpq(3)
+  .attack(.3)
+  .release(2)
+  .room(.8)
+  .transpose(-12)
+  .postgain(1) 
+  .slow(2)
+  ._pianoroll()
+/*
+DRUMS
+*/
+
+_$: sound("dhum ~ na ki dhum ~ thom ki")
+  .bank("mridangam")
+  .slow(2)
+  .gain(sine.range(.35, .6).slow(16))
+  .color("red")
+  ._punchcard()
+
+
+/*
+
+DRONE
+
+*/
+
+_$: note("d2,a2,d3")
+  .s("gm_pad_warm")
+  .lpf(sine.range(250, 600).slow(16))
+  .attack(1)
+  .release(5)
+  .room(.9)
+  .postgain(slider(0.214,0,2))
+  .slow(8)
+  .color("yellow")
+  ._pianoroll()
+
+
+
+
+
+
+

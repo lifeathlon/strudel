@@ -1,0 +1,58 @@
+setcpm(120/4)
+
+const scale = "a:minor"
+var melo = 
+  n("<0 -5 4 -5 6 -2 4 -5>")
+//  n("<0 2 2 4 6 5 2>")
+  .struct("x [x -] [x x]")
+  //.struct("x [x ~] [x x] ~")
+  .scale(scale)
+  .sound("supersaw")
+  .room(.8)
+  .delay(.2)
+  .delaytime(.25)
+  .delayfeedback(.25)
+
+var chords =
+  n("<[0, 2, 4] [2, -1, 5] [4, 2, 6]>")
+  .scale(scale)
+  .sound("gm_synth_bass_1")
+  .fast(1)
+  .transpose(0)
+  .gain(.45)
+  
+
+
+var melo2 = 
+  n("<-7 2 -3 2 -1 5 -3 2>")
+  //n("<0 2 4 2 6 5 4 2>")
+  .struct("x [x -] [x x]")
+  // .struct("x [~ x] [x x] [~ x]")
+  .scale(scale)
+  .sound("supersaw")
+  .room(.8)
+  .delay(.2)
+  .delaytime(.25)
+  .delayfeedback(.25)
+  .fast(2)
+  .transpose(0)
+  .lpf(sine.range(900, 2400).slow(8))
+  .gain(.65)
+
+  
+
+
+
+$: stack(
+  s("bd:1!4").room(.2).distort("2:0.3").duck("2:4:6").duckattack(.2).duckdepth(.8).gain(.35),
+  s("hh:1!16?").gain(.35),
+  s("cp").struct("- x - x").gain(.35),
+  n(irand(2).sub(1)).struct("x").scale(scale).sound("supersaw").transpose(-24).lpf(2500).orbit(4),
+  //melo2,
+  melo2,
+  chords.orbit(2)
+
+)
+ .color("#333")
+ ._scope({height:300})
+._pianoroll({labels:1, height:200})
