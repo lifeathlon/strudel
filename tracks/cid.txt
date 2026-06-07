@@ -51,6 +51,8 @@ var dreamy = x => x
 
 var haha = dreamy(s("<cid*1 _ noneed*1 _>"))
 
+var cido = dreamy(s("<cid*1 _ >"))
+._pianoroll({labels:1})
 _$: haha  
   ._pianoroll({labels:1})
    ._scope({height: 300})
@@ -62,12 +64,14 @@ $: arrange (
   [2,kick],
   [2, stack(cp, kick)],
   [1, bass],
-  [4, haha],  
+  [2, cido],  
   [2, stack(cp, kick, hh)],
   [2, stack(cp, kick, hh, bass)],
   [4, haha],  
+  [4, stack(cp, kick, hh, bass)],
   [4, stack(cp, kick, hh, haha)],
   [16, stack(cp, kick, hh, haha, bass)],
+  [2, cido],
   
 )
  .color("#000")
