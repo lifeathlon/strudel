@@ -1,0 +1,17 @@
+setcpm(90/4) // =140 bpm in 4/4
+
+samples({
+  nein: 'stuff.wav'
+}, 'https://raw.githubusercontent.com/lifeathlon/strudel/main/samples/stuff/')
+
+$: 
+  s("nein*1")
+  .speed(.75)
+  .delay(.35)
+  .delaytime(.375)
+  .delayfeedback(.45)
+  .room(.8)
+  .gain(.8)
+  
+  ._pianoroll()
+   ._scope()
