@@ -1,0 +1,291 @@
+setcpm(170/4)
+
+const drumbank = "tr909"
+const scale = "a:minor"
+
+var kick = sound("bd:1!4").bank(drumbank).room(.2).distort("3:0.3").duck("2:4:6").duckattack(.2).duckdepth(.8)
+var hh   = sound("hh:1").bank(drumbank).beat("0,4,8,12,15", 16).pan(brandBy(brand)).gain(.2)
+var cp   = sound("cp:1").bank(drumbank).beat("0,8,12,14", 16)
+
+
+_DRUMS: stack(
+ kick,
+ hh,
+ cp
+)
+._pianoroll()
+
+
+// lets find a melody
+
+_$: n("0 1 2 3 4 5 6 7" ).scale(scale).clip(1.1).transpose(-12).sound("piano").slow(2)
+  ._pianoroll({ labels: 1, height: 200})
+
+
+
+
+_bass: n("0" ).scale(scale)
+  .transpose(-12)
+  .sound("supersaw")
+  .detune(1)
+  .rel(5)
+  .fm("2").fmh(2.04)
+  .room(1)
+  .roomsize(5)
+  .slow(4)
+  .orbit(2)
+._pianoroll()
+  
+
+var chords =  n("<[2, 4, 6] [0, 2, 4] [3, 4, 7] [0, 2, 4]> " ).scale("a:minor")
+  .transpose(0)
+  .clip(1)
+  .sound("piano")
+  .room(.8)
+  .roomsize(5)
+  .orbit(4)
+  .postgain(1)
+  ._pianoroll({ labels: 1, height: 200, width:600})
+
+var melo1 = n("2 4 6 2 _ - 4 6 4 4 _ -" ).scale("a:minor").transpose(0).sound("piano").slow(2).room(1)
+var melo2 = n("2 4 6 0 _ - 4 6 4 2 _ -" ).scale("a:minor").transpose(0).sound("piano").slow(2).room(1)
+
+var m1 = "2 4 6 2 _ - 4 6 4 4 _ -"
+var m2 = "2 4 6 2 _ - 4 6 4 4 _ -"
+var m3 = "2 4 6 0 _ - 4 6 4 2 _ -"
+var m4 = "2 4 6 0 0 - 4 6 4 2 2 -"
+
+var melody = [
+  "2 4 6 2 _ - 4 6 4 4 _ -",
+  "2 4 6 2 _ - 4 6 4 4 _ -",
+  "2 4 6 0 _ - 4 6 4 2 _ -",
+  "2 4 6 0 0 - 4 6 4 2 2 -",
+  "2 _ 6 _ 0 - 4 _ 4 _ 2 -",
+]
+
+
+//var melody = m[0]
+
+const lead_instrument = "piano"
+const lead_room = 1
+const lead_room_size = 6
+const lead_transpose = 12
+const lead_slow = melody.length
+const lead_post_slow = 2
+const lead_gain = slider(1,0,2)
+
+
+//var lead = n(seq(m1,m2,m3,m4)).scale(scale).sound(lead_instrument).transpose(lead_transpose).slow(lead_slow).room(lead_room).roomsize(lead_room_size)
+//var lead = n(seq(melody[0],melody[1],melody[2],melody[3] ,melody[4])).scale(scale).sound(lead_instrument).transpose(lead_transpose).slow(lead_slow).room(lead_room).roomsize(lead_room_size)
+//var lead = n(seq(melody[4])).scale(scale).sound(lead_instrument).transpose(lead_transpose).slow(1).room(lead_room).roomsize(lead_room_size)
+var lead = 
+  n(seq(melody[0],melody[1],melody[2],melody[3] ,melody[4]))
+  .scale(scale)
+  .sound(lead_instrument)
+  .transpose(lead_transpose)
+  .slow(lead_slow)
+  .room(lead_room)
+  .roomsize(lead_room_size)
+  //.orbit(6)
+   .postgain(lead_gain)
+  //.attack(.2)
+  //.decay(.6)
+
+var bass =  
+  n(irand(3))
+  .struct("x")
+  .scale(scale)
+  .slow(1)
+  .transpose(-24)
+  .sound("supersaw")
+  .room(1)
+  .orbit(4)
+  .ribbon(21,6)
+  ._pianoroll({ labels: 1, height: 100, width:600})      
+
+
+
+var notes = n("0, 1, 2, 3, 4, 5, 6, 7" ).scale("a:minor").sound("piano")
+_$: notes._pianoroll({labels:1, height:200})
+
+//var lead2 =  note("[a3, c4, e4]@2 [c4, e4, g4]@0.5").sound("supersaw").transpose(0).gain(.5).room(1).slow(2).attack(.1).sustain(.1).decay(.5)
+//var lead2 = note("<a3 [a3 c4]>").sound("supersaw").transpose(0).gain(.5).room(1).slow(2).attack(.3).sustain(.1).decay(.5).detune(1)
+$: s("hh").gain(.05)._pianoroll()
+
+
+var melody2 = [
+  "<[0] [2] [0, 4 4]  [4]>",
+  "<[2] [2] [0, 4 4]  [4]>",
+  "<[0] [2] [0, 4 4 4 4] [4]>",
+  "<[2] [4] [0, 4 4 4 4] [4]>",
+  "<[2] [4] [0 2, 4 6 4 4] [4]>",
+  "<[0] [2] [0 0, 4 4 4 4]  [4]>",
+]
+
+/*
+var leadSound = (x, t) => x
+  .scale("a:minor")
+  .sound("supersaw")
+  .transpose(t)
+  .gain(.5)
+  .room(.8)
+  //.orbit(4)
+*/
+/*
+var leadSound = (x, t) => x
+  .scale("a:minor")
+  .sound("supersaw")
+  .transpose(t)
+  .attack(.01)
+  .decay(.18)
+  .sustain(.6)
+  .release(.25)
+  .lpf(2200)
+  .lpq(3)
+  .delay(.45)
+  .delaytime(.1875)
+  .delayfeedback(.5)
+  .room(.65)
+  .gain(.4)
+*/
+
+var leadSound = (x, t) => x
+  .scale("a:minor")
+  .sound("sawtooth")
+  .transpose(t)
+  .attack(.1)
+  .decay(.4)
+  .sustain(.4)
+  .release(.9)
+  .lpf(650)
+  .lpq(1)
+  .delay(.22)
+  .delaytime(.375)
+  .delayfeedback(.3)
+  .room(.8)
+
+
+
+var leadParts = [
+  { melody: melody2[0], transpose: 0 },
+  { melody: melody2[0], transpose: -12 },
+  { melody: melody2[1], transpose: 0 },
+  { melody: melody2[2], transpose: 0 },
+  { melody: melody2[3], transpose: 0 },
+  { melody: melody2[4], transpose: 0 },
+  { melody: melody2[5], transpose: 0 },
+
+]
+
+var leads = leadParts.map(part =>
+  leadSound(n(part.melody), part.transpose)
+)
+
+
+_$: 
+ stack (bass, leads[6].gain(.6))
+ 
+
+$: arrange(
+
+  [1, bass.slow(1)],
+  [2, cp],
+  [1, bass.slow(1)],
+  [2, cp],
+  [1, bass.slow(1)],
+  [2, stack(cp, hh)],
+  [1, bass.slow(1)],
+  [1, stack(cp, hh, kick)],
+  [1, bass.slow(1)],
+  [1, stack(cp, hh, kick)],
+  [1, bass.slow(1)],
+  
+  [2, stack(cp, hh, kick)],
+
+  [16, stack(cp, hh, kick, bass)],
+    
+  [4, stack(cp, hh, kick, leads[6])],
+  
+  [16, stack(cp, hh, kick, bass)],
+
+  [16, stack(cp, hh, kick, leads[6])],
+    
+  [4, stack(cp, hh, kick)],
+
+  [4, stack(cp, hh, kick, leads[6], bass)],
+
+  [16, stack(cp, hh, kick, bass)],
+
+  [32, stack(cp, hh, kick, leads[6], bass)],
+
+  [2, cp],
+
+  
+  /*
+  [1, bass],
+  [2, cp],
+  [1, bass],
+  [2, stack(kick,cp)],
+  [1, bass],
+  [2, stack(kick,cp)],
+  [2, stack(kick,cp, bass)],
+  [2, cp],
+  [16, stack(kick,cp, bass)],  
+  [4, leads[5]], 
+  [4, leads[6]], 
+  [1, bass.slow(1)],
+  [2, cp],
+  [1, bass],
+  [4, stack(leads[1] )], 
+  //[4, stack(leads[5] )], 
+  [8, stack(leads[6] )], 
+  */
+
+)
+._pianoroll({labels:1, height:200})
+._scope({height:300})
+
+
+
+_$:arrange(
+  [1, bass],
+  [2, cp],
+  [1, bass],
+  [2, stack(kick,cp)],
+  [1, bass],
+  [2, stack(kick,cp)],
+  [2, stack(kick,cp, bass)],
+  [2, cp],
+  [16, stack(kick,cp, bass)],
+  [8, stack(kick,cp, bass, lead.slow(2).transpose(0))],
+  [8, stack(kick,cp, bass, lead.slow(2).transpose(12))],
+  [8, stack(kick,cp, bass, lead.slow(2).transpose(24))],
+  [8, stack(cp, bass, lead.slow(4).transpose(0))],
+  ([2, cp])
+
+//  [1, bass],
+//  [1, bass],
+//  [2, stack(kick,cp)],
+//  [1, bass],
+ // [1, cp]
+ )
+  .color("#1e2e4e")
+  ._pianoroll()._scope({height:300})
+
+
+_$: stack(
+   kick.postgain(slider(0.686,0,2)),
+   hh.postgain(slider(0.538,0,2)),
+   cp.postgain(slider(0.584,0,2)),
+   chords.postgain(slider(0,0,2)),
+   lead.slow(3).postgain(slider(1.462,0,2)),
+   bass.postgain(slider(1.01,0,2)),
+)
+  .color("#1e2e4e")
+._pianoroll({ labels: 1, height: 330, width:600})._scope({height: 330, width:600})
+
+
+
+_arp: n("2 4 6 0 2 4 3 4 7 0 2 4 " ).scale("a:minor").transpose(0).sound("piano").clip(3).room(1)
+  ._pianoroll({ labels: 1, height: 30, width:600})
+
