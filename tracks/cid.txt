@@ -1,0 +1,74 @@
+setcpm(170/4) // =140 bpm in 4/4
+
+samples({
+  nein: 'stuff.wav',
+  noneed: 'wedontneedthis.wav',
+  cid: 'commerceisdead.wav'
+}, 'https://raw.githubusercontent.com/lifeathlon/strudel/main/samples/stuff/')
+
+
+
+  
+const drumbank = "tr909"
+const scale = "a:minor"
+
+var kick = sound("bd:1!4").bank(drumbank).room(.2).distort("3:0.3").duck("2:4:6").duckattack(.2).duckdepth(.8)
+var hh   = sound("hh:1").bank(drumbank).beat("0,4,8,12,15", 16).pan(brandBy(brand)).gain(.2)
+var cp   = sound("cp:1").bank(drumbank).beat("0,8,12,14", 16)
+
+
+var bass =  
+  n(irand(3))
+  .struct("x")
+  .scale(scale)
+  .slow(1)
+  .transpose(-24)
+  .sound("supersaw")
+  .room(1)
+  .orbit(4)
+  .ribbon(21,6)
+  ._pianoroll({ labels: 1, height: 100, width:600})      
+
+
+
+_DRUMS: stack(
+ kick,
+ hh,
+ cp
+)
+._pianoroll()
+
+
+
+var dreamy = x => x
+  .speed(.75)
+  .delay(.35)
+  .delaytime(.375)
+  .delayfeedback(.45)
+  .room(.8)
+  .gain(.8)
+  .slow(1)
+
+var haha = dreamy(s("<cid*1 _ noneed*1 _>"))
+
+_$: haha  
+  ._pianoroll({labels:1})
+   ._scope({height: 300})
+$: arrange (
+  [2,cp],
+  [1, bass],
+  [2,cp],
+  [1, bass],
+  [2,kick],
+  [2, stack(cp, kick)],
+  [1, bass],
+  [4, haha],  
+  [2, stack(cp, kick, hh)],
+  [2, stack(cp, kick, hh, bass)],
+  [4, haha],  
+  [4, stack(cp, kick, hh, haha)],
+  [16, stack(cp, kick, hh, haha, bass)],
+  
+)
+ .color("#000")
+  ._pianoroll({labels:1})   ._scope({height: 300})
