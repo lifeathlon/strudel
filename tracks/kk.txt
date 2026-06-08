@@ -1,0 +1,55 @@
+setcpm(90/4)
+
+samples({
+  krim: ['kg.wav', 'kg1.wav']
+}, 'https://raw.githubusercontent.com/lifeathlon/strudel/main/samples/krim/')
+
+
+var darkDrone = x => x
+  .sound("supersaw")
+  .transpose(-24)
+  .slow(8)
+  .speed(.35)
+  .attack(4)
+  .release(8)
+  .room(1)
+  .delay(.15)
+  .delaytime(.75)
+  .delayfeedback(.6)
+  .lpf(450)
+  .lpq(10)
+  .gain(.55)
+
+
+var dreamy = x => x
+  .speed(.75)
+  .delay(.35)
+  .delaytime(.375)
+  .delayfeedback(.45)
+  .room(.8)
+  .gain(.8)
+  .slow(1)
+
+var meditative = x => x
+  .speed(.95)
+  .attack(.4)
+  .release(2.5)
+  .delay(.25)
+  .delaytime(.5)
+  .delayfeedback(.35)
+  .room(1)
+  .lpf(1400)
+  .gain(.65)
+  .slow(2.2)
+
+
+$: note("a").gain(0.01)._pianoroll()
+
+var krim = meditative(s("<krim:1*1 _>"))
+$: darkDrone(n("<0>").scale("a:minor")).gain(.1)
+._pianoroll()
+$: stack(
+  krim,
+  
+  )
+._pianoroll()
