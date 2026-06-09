@@ -20,7 +20,7 @@ var meditative = x => x
   .room(1)
   .lpf(1400)
   .gain(.65)
-  .slow(2)
+  .slow(2.5)
 
 
 var softDrone = x => x
@@ -63,7 +63,7 @@ var sitaDrone = x => x
   .delay(.25)
   .delaytime(.5)
   .delayfeedback(.35)
-  .gain(.25)
+  .gain(.1)
 
 
 var sitaDrone2 = x => x
@@ -116,7 +116,7 @@ var krim = meditative(s("<krim:1*1 _>"))
 
 metro: note("a").gain(.01)._pianoroll()
 _kk: krim
-_maha: maha
+maha: maha
 _gy: gaya
 ._pianoroll()
 

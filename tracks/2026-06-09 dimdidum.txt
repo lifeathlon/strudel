@@ -1,0 +1,154 @@
+setcpm(138/4)
+
+_metronom: note("c").sound("clap").gain(0.01)._pianoroll()
+
+const scale = "g:minor"
+
+// CHORDS
+
+
+var chords =    n("<[0,2,11,7]    [5,7,9, 12] [2,4,6, 9]      [6,8,10, -1] >").scale(scale)
+  .struct("x")
+  .slow(4)
+  .sound("gm_pad_warm")
+  .attack(2.5)
+  .release(2)
+  .room(.9)
+  .lpf(sine.range(650, 1400).slow(8))
+  .gain(.25)
+  ._pianoroll({labels:1})
+_tltr : n("0 1 2 3 4 5 6").scale(scale).sound("piano")
+
+// MELO
+
+var melo =    n("<2 4 6 2>").scale(scale)
+       .sound("piano")
+       .struct("x _ x [x _ _ x]")
+       //.struct(" x [x _ _ x] x _")
+       .transpose(+12)
+       .lpf(1600)
+       .room(.85)
+       .delay(.25)
+       .delaytime(.375)
+       .delayfeedback(.35)
+       .gain(.8)
+  ._pianoroll({labels:1})
+
+
+// Drums
+
+const drumbank = "rolandtr909"
+
+var kick = s("bd:1").struct("- x - [x x]").bank(drumbank)
+      .gain(.65)
+      .lpf(900)
+      .duck ("2:3:4")
+      .duckattack(.2)
+      .duckdepth(.8)
+
+var cp =   s("cp:1").struct("- x  [x x] -").bank(drumbank).gain(.12).room(.6)
+
+// Bass
+
+_b1: n("<0 5 2 6>").scale(scale).sound("supersaw").struct("x").transpose(-24)
+     .lpf(450).attack(.01).release(.25).postgain(1)
+
+
+var bass =  n("<0 5 2 6>").scale(scale).sound("supersaw").struct("x").transpose(-24)
+     .lpf(450).attack(.01).release(.25)
+     .detune(1)
+     .orbit(2)
+     .postgain(.8)
+     
+
+_b3: n("<0 5 2 6>")
+  .scale(scale)
+  .sound("gm_synth_bass_1")
+  .struct("x")
+  .transpose(-24)
+  .lpf(350)
+  .attack(.04)
+  .release(.6)
+  .postgain(.75)
+
+var finalHigh = n("19")
+  .scale(scale)
+  .sound("piano")
+  .transpose(12)
+  .struct("~ ~ ~ x")
+  .slow(8)
+  .lpf(1800)
+  .room(.9)
+  .delay(.25)
+  .delaytime(.375)
+  .delayfeedback(.45)
+  .gain(.55)
+
+$:
+arrange(
+  [1, bass],
+  [1, silence],
+  [1, bass],
+  [1, silence],
+
+  [4, stack(
+         melo.slow(2),
+         bass
+           )],
+
+  [4, stack(
+         melo.slow(2),
+         bass,
+         kick
+           )],
+
+  [4, stack(
+         melo.slow(2),
+         bass,
+         kick, cp
+           )],
+
+  [8, stack(
+//         melo.slow(2),
+         bass,
+         kick, cp, chords
+           )],
+
+  [8, stack(
+         melo.slow(2),
+         bass,
+         kick, cp, chords
+           )],
+
+  [4, stack(
+         melo.slow(2),
+         bass,
+         kick
+           )],
+
+  [8, stack(
+         melo.slow(1),
+         bass,
+         kick, cp, chords
+           )],
+
+    [8, stack(
+         melo.slow(.5),
+         bass,
+         kick, cp, chords
+           )],
+
+  [8, stack(
+         melo.slow(2),
+         bass,
+         kick,
+         cp,
+           )],
+  [2, stack(
+         kick
+           )],
+
+  
+  [1, silence],
+)
+._pianoroll({labels:1, height:200})
