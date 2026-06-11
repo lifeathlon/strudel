@@ -84,13 +84,13 @@ var theword = s("hlnub")
 
 
 drums: stack (
-  //kick,
-  //sd,
-  //hh
+  kick,
+  sd,
+  hh
 ).postgain(.7)
 ._punchcard()
 
-_$: 
+$: 
 arrange(
   //[4,  silence],
   [4,  headless.slow(2) ],
@@ -101,13 +101,13 @@ arrange(
 //theword//headless//headless_theword
 ._scope()
 
-_bass: n("<0 2 4>").scale(scale).transpose(-24)
-  .sound("supersaw").room(1).orbit(2).gain(.8).slow(2)
+bass: n("<0 2 4>").scale(scale).transpose(-24)
+  .sound("supersaw").room(1).orbit(2).gain(.6).slow(2)
   ._pianoroll({labels:1})
 
 
 
-_$:
+$:
 arrange(
   [4, melo],
   [4, melo2],
