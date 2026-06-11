@@ -1,0 +1,24 @@
+setcpm(134/4)
+
+const scale = "g:minor"
+
+
+const dbank = "RolandTR909"
+$: s("bd:1!4").bank(dbank).duck(2).duckattack(.2).duckdepth(.8)
+
+
+
+
+$: n("<[0,2,4] [2,4,6] [4,6,8] [5,7,9]> ").scale(scale).sound("saw").transpose(0).lpf("250")
+
+var melo1 = n("<9 4 6 7>").scale(scale).sound("gm_acoustic_guitar_steel").struct("x - x [x x ]")
+var melo2 = n("<2 -1 -3 0>").scale(scale).sound("gm_acoustic_guitar_steel").struct("x x x [x -]")
+
+$: arrange(
+  [4, melo1],
+  [4, melo2]
+).fast(1)
+  ._pianoroll({labels:1})
+
+$: n("<0 2 4 5>").sound("supersaw").lpf(sine.range(100, 500)).slow(2).orbit(2).detune(1)
+._scope()
