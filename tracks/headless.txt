@@ -1,0 +1,120 @@
+setcpm(150/4)
+const scale = "g:minor"
+const dbank = "RolandTr909"
+
+
+samples({
+  hlnub: 'headless.mp3',
+  noneed: 'wedontneedthis.wav',
+  cid: 'commerceisdead.wav'
+}, 'https://raw.githubusercontent.com/lifeathlon/strudel/main/samples/stuff/')
+
+
+
+
+var kick = s("bd:1").bank(dbank)
+  //.struct(" - x - [x x]")
+  .struct("x x x [ x x]")
+  .distort("3:0.3")
+  .duckorbit(2)
+  .duckdepth(.8)
+  .duckattack(.2)
+  .room(1)
+var sd = s("sd:1").bank(dbank).lpf(2500)
+  .struct(" x - x [- -]")
+var hh = s("hh:1!16?").bank(dbank).lpf(2500)
+
+
+
+
+
+
+//chords: n("<[0, 2 , 4] [1, 3, 5] [2, 4, 6] [3, 5, 7] [4, 6, 8] [5, 7, 9] [6, 8, 10]> ").scale(scale).sound("piano").struct("x")
+//chords: n("<[0, 2 , 4, 7]  [2, 4, 6, 9] [4, 6, 8, 11] [5, 7, 2, 6] > ").scale(scale).sound("piano").struct("x")
+//chords: n("<[0, 2 , 4, 7]  [4, 6, 8, 11] [2, 4, 6, 9]  > ").scale(scale).sound("piano").struct("x")
+._pianoroll({labels:1, height:200, width: 600})
+
+
+
+
+const pianoSound = x => x
+  .scale(scale)
+  .sound("piano")
+  .room(.8)
+
+
+var melo = pianoSound(
+  n("<0 4 2 6>")
+  .struct("x _ [x _ _] [x x]")
+).color("#1e2e4e")
+
+var melo2 = pianoSound(
+  n("<4 8 6 4>")
+  .struct("x _ [x _ _] [x x]")
+).color("#1e2eFF")
+
+var dreamy = x => x
+  .speed(.75)
+  .delay(.35)
+  .delaytime(.375)
+  .delayfeedback(.45)
+  .room(.8)
+  .gain(.8)
+  .slow(1)
+
+var headless_theword = s("hlnub")
+  .slow(4)
+  .room(1)
+  .speed(.7)
+  ._pianoroll()
+
+var headless = s("hlnub")
+  .end(.25)
+  .slow(1)
+  .room(1)
+  .speed(.7)
+  ._pianoroll()
+
+var theword = s("hlnub")
+  .begin(.25)
+  .slow(2)
+  .room(1)
+  .speed(.7)
+  ._pianoroll()
+
+
+drums: stack (
+  //kick,
+  //sd,
+  //hh
+).postgain(.7)
+._punchcard()
+
+_$: 
+arrange(
+  //[4,  silence],
+  [4,  headless.slow(2) ],
+  [8,  theword.slow(2)],
+  [8,  headless_theword ],
+
+)
+//theword//headless//headless_theword
+._scope()
+
+_bass: n("<0 2 4>").scale(scale).transpose(-24)
+  .sound("supersaw").room(1).orbit(2).gain(.8).slow(2)
+  ._pianoroll({labels:1})
+
+
+
+_$:
+arrange(
+  [4, melo],
+  [4, melo2],
+  [4, melo],
+  [4, melo2],
+  [4, melo.transpose(12)],
+  [4, melo2.transpose(12)],
+  
+)
+._pianoroll({labels:1, height:200})
