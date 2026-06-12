@@ -1,0 +1,61 @@
+setcpm(90/4)
+
+const scale = "c:major"
+
+var drums = stack (
+  s("bd:1 - - -").duck(2).duckattack(.2).duckdepth(.8),
+  s("- - sd:1 -").gain(.5)
+).room(.4).postgain(.5)
+
+
+
+var chords = n("<[0, 2, 4, 7]  [2, 4, 6, 9] [14, 9, 11, 7]> ")
+    .scale(scale)
+    .struct("x")
+    .attack(1.5)
+    .sound("gm_epiano1:2")
+    .room(.7)
+    .postgain(sine.range(.5, 1.2 ))
+._pianoroll({labels:1, height:100})._scope()
+
+var bass = n("<0 2>").scale(scale)
+  .struct("x")
+  .transpose(-12)
+  .sound("gm_fretless_bass")
+  .lpf(900)
+  .room(.3)
+  .gain(.65)
+  .postgain(.45)
+
+var arp =  n("<0 2 4 7  2 4 6 9 14 9 11 7>")
+    .scale(scale)
+    .transpose(12)
+    .struct("x")
+    .sound("gm_flute:1")
+    .room(.7)
+    //.delay(.25)
+    //.dfb(.5)
+    .fast(8)
+    .postgain(.3)
+._pianoroll({labels:1, height:100})
+
+
+  var melo = n("<4 2 0 5>")
+    .scale(scale)
+    .transpose(12)
+    .struct("x _ [x _ _ x] x")
+    .sound("gm_fiddle:1")
+    .room(.6)
+    .slow(1)
+    .postgain(.8)
+._pianoroll({labels:1})
+
+  
+play: stack(
+  drums.slow(1),
+  chords.slow(2),
+  bass.slow(4),
+  melo,
+  arp.slow(1)
+)
+._pianoroll({labels:1, height:200})

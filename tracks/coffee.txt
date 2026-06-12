@@ -1,0 +1,53 @@
+setcpm(80/4)
+
+const scale = "c:major"
+
+var warmKeys = x => x
+  .sound("gm_electric_piano_1")
+  .room(.7)
+  .delay(.18)
+  .delaytime(.33)
+  .delayfeedback(.25)
+  .lpf(1800)
+  .gain(.7)
+
+var softPad = x => x
+  .sound("gm_warm_pad")
+  .attack(2)
+  .release(4)
+  .room(.9)
+  .lpf(1200)
+  .gain(.35)
+
+var coffeeDrums = x => x
+  .room(.4)
+  .gain(.45)
+
+var mellowBass = x => x
+  .sound("gm_acoustic_bass")
+  .lpf(900)
+  .room(.3)
+  .gain(.65)
+
+$: stack(
+  warmKeys(
+    n("<[0,2,4,6] [5,7,9,11] [3,5,7,9] [4,6,8,10]>")
+      .scale(scale)
+      .slow(4)
+  ),
+
+  mellowBass(
+    n("<0 5 3 4>")
+      .scale(scale)
+      .transpose(-12)
+      .slow(4)
+  ),
+
+  coffeeDrums(
+    sound("bd ~ sd ~").bank("RolandTR909")
+  ),
+
+  sound("hh*8").bank("RolandTR909")
+    .gain(.18)
+    .room(.3)
+)
