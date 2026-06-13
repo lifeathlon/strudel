@@ -1,0 +1,24 @@
+// Attack → Decay → Sustain → Release
+function adsrN(sound, scale, note, transpose,
+              attack, decay, sustain, release) {
+  // Attack: how fast the sound starts.
+  // Decay: how fast the sound drops after the first hit.
+  // Sustain: how loud the sound stays while the note is held.
+  // Release: how long the sound fades out after the note ends.
+  return n(note)
+         .scale(scale)
+         .sound(sound)
+         .transpose(transpose)
+         .attack (attack)
+         .decay  (decay)
+         .sustain(sustain)
+         .release(release)
+
+}
+
+
+function addRoom(snd, room, rS) {
+  // Room: how much echo space the sound gets.
+  // Roomsize: how big the virtual room feels.
+  return snd.room(room).roomsize(rS)
+}
