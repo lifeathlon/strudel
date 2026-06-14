@@ -1,0 +1,29 @@
+setcpm(90/4)
+
+scale = "c:major"
+const rythm = "[[x - x _] [x x] x _  ]"
+const lead = x => x
+  .sound("gm_pad_halo")
+  .attack(.29)
+  .decay(.9)
+  .sustain(.5)
+  .room(.9)
+  .roomsize(3)
+  .delay(.25)
+  
+
+//$: n("0").sound("bytebeat").scale(scale).struct("<[x x x x] x x _ x _>")
+
+//dhum ki na ki dhum ki na ki
+$: sound("dhum - - - ").bank("mridangam").room(.5).roomsize(3).lpf(200).postgain(.5)
+//$: sound("- [dhum dhum]  - dhum").bank("mridangam").gain(.25)
+  
+  
+
+const bass =  lead(n("<0 1, 0 3 2 4 >")).scale(scale).transpose(-12)//.struct(rythm)
+
+$: stack(
+  bass.slow(2),
+  s("gm_bird_tweet").n(irand(6)).slow(1).speed(.8)
+)
+  ._pianoroll({labels:1, height:100})

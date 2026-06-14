@@ -1,0 +1,173 @@
+setcpm(90/4)
+  
+const scale = "g:minor"
+
+// Attack → Decay → Sustain → Release
+function adsrN(sound, scale, note, transpose,
+              attack, decay, sustain, release) {
+  // Attack: how fast the sound starts.
+  // Decay: how fast the sound drops after the first hit.
+  // Sustain: how loud the sound stays while the note is held.
+  // Release: how long the sound fades out after the note ends.
+  return n(note)
+         .scale(scale)
+         .sound(sound)
+         .transpose(transpose)
+         .attack (attack)
+         .decay  (decay)
+         .sustain(sustain)
+         .release(release)
+
+}
+
+function addRoom(snd, room, rS = 1) {
+  // Room: how much echo space the sound gets.
+  // Roomsize: how big the virtual room feels.
+  return snd.room(room).roomsize(rS)
+}
+
+function addEcho(snd, d, dt, df) {
+  // Delay: how much echo you hear.
+  // Delaytime: how late the echo comes back.
+  // Delayfeedback: how many times the echo repeats.
+  return snd.delay(d).delaytime(dt).delayfeedback(df)
+}
+
+function drum () {
+  return sound("bd:1").bank("RolandTR909")
+  .speed(1.6)
+  .attack(.1)
+  .release(1.6)
+  .hpf(125)
+  .lpf(1000)
+  .room(.6)
+  .roomsize(5)
+         
+
+    /*
+    .bank("RolandTR909")
+    .gain(1.3)
+    .attack(.01)
+    .release(1.6)
+    .room(.6)
+    .roomsize(5)
+    .lpf(1000)
+    .struct(pat)
+    */
+}
+
+S$: drum().struct("x - x -")
+
+
+
+
+/*
+============================================================================
+*/
+
+const beat_supersaw = (notes = "0") =>
+  adsrN("supersaw", scale, notes, -24,
+       .1, .1, sine.range(.1, .3), .1)
+  .postgain(.3)
+
+const lead_supersaw = (notes = "0") =>
+  adsrN("supersaw", scale, notes, 0,
+       .2, .3, .3, .3)
+  .postgain(.3)
+
+
+
+
+var mbox = (notes = "0") =>
+  adsrN("gm_music_box", scale, notes, -12,
+       .3, 1.4, sine.range(.1, .3), .1)
+  .postgain(.3)
+
+var harp = (notes = "0") =>
+  adsrN("gm_harpsichord", scale, notes, -12,
+       .4, 1.4, .3, .1)
+  .postgain(.3)
+
+
+var exp = (notes = "0") =>
+  adsrN("piano", scale, notes, 0,
+       0, 1.4, .3, .1)
+  .postgain(.3)
+
+
+_S$: addRoom(exp("<0 4 2>").fast(2), 1, 1)
+._punchcard({labels:1})
+_S$: n("<0 2 4 7 9 7 4 2>")
+  .scale("d:minor")
+  .sound("supersaw")
+  .struct("x [x x] x [x x]")
+  .attack(.02)
+  .release(.25)
+  .room(.6)
+  .delay(.3)
+  .delaytime(.25)
+  .delayfeedback(.4)
+  .lpf(2200)
+  .postgain(.45)
+
+const move = "<-12 0 12>"
+_S$: n("<0 2 4 7>")
+  .scale("g:minor")
+  .sound("supersaw")
+  .transpose(move)
+  .postgain(.6)
+  .fast(4)
+  ._pianoroll({labels:1})
+  ._scope()
+
+const chords = "<[0, 4] [-4, 0] [2, -2, 4] >"
+const chord_rythm = "[x x] x _ [x x x x]"
+
+_S$: addEcho(addRoom(lead_supersaw(chords), 1, 5),.25, .25, .25).struct(chord_rythm).slow(1)
+._pianoroll({labels:1})
+
+
+// Make a speed value
+// Start at 1
+// Rise to 16
+// Take 16 cycles to get there
+// const speedUp = saw.range(1, 16).slow(16)
+const speedUp = "<1 4 8 16 32 16 16 16>".slow(1)
+
+$: arrange(
+ [8, stack(
+        //expV("<0 2 4 2>").struct("x _ [x x] -").fast(1),
+        addEcho(addRoom(lead_supersaw(chords), 1, 1),.25, .25, .25).struct(chord_rythm).slow(1),
+        addRoom(beat_supersaw("<0>").fast(1), .7, 5).fast(speedUp).postgain(.75)
+     )
+ ],
+
+  [1, stack(
+        //expV("<0 2 4 2>").struct("x _ [x x] -").fast(1),
+        addEcho(addRoom(lead_supersaw(chords), .5, 1),.25, .25, .25).struct(chord_rythm).slow(1),
+   )],
+
+  [1, silence]
+
+)
+._pianoroll({labels:1, height:100})
+/*
+var adsr = exp
+  
+_$: arrange(
+ [1, adsr.fast(1)],
+ [1, adsr.fast(2)],
+ [1, adsr.fast(4)],
+ [1, adsr.fast(8)],
+ [1, adsr.fast(16)],
+ [1, adsr.fast(32)],
+ [1, adsr],
+ [64, stack(
+        adsr.fast(16),
+        //s("bd:1").bank("rolandTR909").struct("x - x -"),
+        //s("sd:1").bank("rolandTR909").struct("- x - x")
+      )
+  ],
+  
+)
+._pianoroll({labels:1, height:100})*/
